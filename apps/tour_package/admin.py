@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import DestinationModel, GuideModel, TourPackageModel
 
-# Register your models here.
+
+admin.site.register(DestinationModel)
+admin.site.register(GuideModel)
+admin.site.register(TourPackageModel)
