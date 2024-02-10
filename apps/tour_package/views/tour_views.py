@@ -3,18 +3,21 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from apps.tour_package.serializers.tour_serializers import DestinationSerializer, GuideSerializer, TourPackageSerializer
+from apps.tour_package.models import DestinationModel, GuideModel, TourPackageModel
 
 
 class DestinationCreate(APIView):
     def post(self, request):
-        # name = request.data.get('destination_name')
-        # place_location = request.data.get('location')
-        # description = request.data.get('description')
         serializer = DestinationSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response(status.HTTP_201_CREATED)
-
+        return Response(serializer.data, status.HTTP_201_CREATED)
+    
+    def get(self, request):
+        queryset = DestinationModel.objects.all()
+        serializer = DestinationSerializer(queryset, many=True)
+        return Response(serializer.data)
+    
 
 class GuideCreate(APIView):
     def post(self, request):
@@ -22,6 +25,11 @@ class GuideCreate(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(status.HTTP_201_CREATED)
+    
+    def get(self, request):
+        queryset = GuideModel.objects.all()
+        serializer = GuideSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 class TourPackageCreate(APIView):
     def post(self, request):
@@ -29,3 +37,8 @@ class TourPackageCreate(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(status.HTTP_201_CREATED)
+    
+    def get(self, request):
+        queryset = TourPackageModel.objects.all()
+        serializer = TourPackageSerializer(queryset, many=True)
+        return Response(serializer.data)
