@@ -35,8 +35,9 @@ class TourPackageModel(models.Model):
         ('Couple', 'Couple tour'),
         ('Institute', 'Institute tour'),
         ('Business', 'Business tour'),
+        ('Single', 'Single tour'),
     )
-    tour_field = models.CharField(max_length=10, choices=type_of_tour)
+    tour_field = models.CharField(max_length=15, choices=type_of_tour)
     per_person_price = models.PositiveIntegerField()
     thumbnail_img = models.ImageField(upload_to = 'media/ThumbnailImages')
 
